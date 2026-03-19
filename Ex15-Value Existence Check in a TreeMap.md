@@ -1,50 +1,59 @@
-# Ex15 Value Existence Check in a TreeMap
-## DATE: 7-03-2026
+# Ex14 Tracking the First Unique Number in a Stream using LinkedHashMap
+## DATE: 4.03.2026
 ## AIM:
-To write a Java program that checks whether a given value exists in a TreeMap.
+To implement a program that tracks the first unique (non-repeating) number in a stream of integers using a LinkedHashMap.
 
 ## Algorithm
-1. Create a TreeMap to store key–value pairs.
-2. Insert some sample key–value pairs into the TreeMap.
-3. Display the contents of the TreeMap.
-4. Use the containsValue() method to check whether a specific value exists in the map  
-5. Display the result based on the check.  
+1. Start the program.
+2. Create a LinkedHashMap to store integers as keys and their frequency (count) as
+ values.
+3. Read or define a stream of integers (array of numbers).
+4. For each integer in the stream:
+    1. If the number is not already in the map, insert it with count = 1.
+    2. If it exists, increment its count by 1.
+5. After processing each element, find the first number in the LinkedHashMap with count = 1 (the first unique number).
+6.  Display the current stream and the first unique number.
 
 ## Program:
 ```java
 /*
-Program to checks whether a given value exists in a TreeMap.
-Developed by:LOKESHWARAN S
-Register Number: 212224240080
+Program to tracks the first unique (non-repeating) number in a stream of integers using a LinkedHashMap.
+Developed by: SUJITH A
+Register Number: 212224230278
 */
 
 import java.util.*;
 
-public class TreeMapValueExistenceCheck {
+public class FirstUniqueNumberStream {
 
-    public static void checkValue(TreeMap<Integer, String> map, String searchValue) {
-        if(map.containsValue(searchValue)){
-            System.out.println("Value \""+searchValue+"\" exists in the TreeMap.");
-        }else{
-            System.out.println("Value \""+searchValue+"\" does not exist in the TreeMap.");
+    public static void processStream(int n, Scanner sc) {
+        LinkedHashMap<Integer, Integer> freqMap = new LinkedHashMap<>();
+        for(int i=0; i<n; i++){
+            int current = sc.nextInt();
+            
+            freqMap.put(current, freqMap.getOrDefault(current, 0)+1);
+            
+            int fUniq = -1;
+            
+            for(Map.Entry<Integer, Integer> entry : freqMap.entrySet()){
+                if(entry.getValue() == 1){
+                    fUniq = entry.getKey();
+                    break;
+                }
+            }
+            
+            if(fUniq != -1){
+                System.out.println("First unique number: "+fUniq);
+            }else{
+                System.out.println("No unique number");
+            }
         }
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        TreeMap<Integer, String> map = new TreeMap<>();
-
         int n = sc.nextInt();
-
-        for (int i = 0; i < n; i++) {
-            int key = sc.nextInt();
-            sc.nextLine();  
-            String value = sc.nextLine();
-            map.put(key, value);
-        }
-        String searchValue = sc.nextLine();
-
-        checkValue(map, searchValue);
+        processStream(n, sc);
         sc.close();
     }
 }
@@ -52,9 +61,9 @@ public class TreeMapValueExistenceCheck {
 ```
 
 ## Output:
-<img width="972" height="668" alt="image" src="https://github.com/user-attachments/assets/4f28964f-e8ad-4737-ac84-18a702035340" />
+<img width="686" height="507" alt="image" src="https://github.com/user-attachments/assets/c8c28d2e-327d-4303-b3c5-80c1eeec6735" />
 
 
 
 ## Result:
-Thus, the program successfully checks whether a specified value exists in a TreeMap using the containsValue() method.
+The program successfully tracks and returns the first unique number at any point in the integer stream using a LinkedHashMap.
